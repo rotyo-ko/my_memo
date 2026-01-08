@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}まいめも|メモ一覧{% endblock %}
+
+{% block header %}メモ詳細{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+<div class="card py-3 px-3" style="width: 800px;">
+  <h3>{{ memo.title }}   <small class="fs-6">重要度:{{ memo.priority }}</small></h3>
+  
+  <span>作成日: {{ memo.created_at|date:"Y-m-d H:i:s"}}</span>
+  <span>更新日{{ memo.updated_at|date:"Y-m-d H:i:s" }}</span>
+  <span>カテゴリー: {{ memo.category }}</span>
+  <div class="" style="background-color: rgb(234, 248, 255); width: 550px; height: 200px;"">
+    <h3>{{ memo.content|linebreaksbr }}</h3>
+  </div>
+  <div class="mx-2">
+    <a href="{% url 'memo:edit' slug=memo.slug %}" class="btn me-2 hover-opacity" style="background-color: rgb(37, 218, 13);">編集</a>
+    <form action="{% url 'memo:delete' slug=memo.slug %}" method="post" style="display:inline;" 
+        onsubmit="return confirm('本当に削除しますか？');">
+    {% csrf_token %}
+    <button type="submit" class="btn hover-opacity" style="background-color: rgb(210, 42, 42);">
+      削除
+    </button>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

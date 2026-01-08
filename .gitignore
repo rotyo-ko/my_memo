@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+.vscode
+
+db.sqlite3
+
+.env
+.env.local
+
+generate_secret_key_to_env.py
+
+media/

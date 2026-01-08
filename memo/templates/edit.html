@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}まいめも|Edit{% endblock %}
+
+{% block header %}編集ページ{% endblock %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-lg hover-opacity" style="background-color: rgb(37, 218, 13);">編集</button>
+
+</form>
+
+{% endblock %}
