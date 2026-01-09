@@ -69,7 +69,7 @@ Django を起動するには SECRET_KEY が必要です。
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())" 
 ```
 
-# マイグレーション と　サーバー起動
+## マイグレーション と　サーバー起動
 ```bash
 python manage.py migrate
 python manage.py runserver
