@@ -1,5 +1,15 @@
 # メモアプリ
 
+## 使用技術
+
+- Python 3.13 以降
+- Django 5.2
+- Django REST Framework
+- Bootstrap 5
+- PostgreSQL（開発時）
+- SQLite（このリポジトリ）
+- django-environ
+
 ## 概要
 
 このプロジェクトは、Django の学習目的で作成した Web アプリケーションです。
@@ -19,8 +29,8 @@
 
   開発は PostgreSQL でおこないましたが、このリポジトリでは SQLite を使用しています。
   
-  また、環境変数の管理に django-environ を導入しているので.envを設定していただければ PostgreSQL でも実行できるようになっています。
-  .env.example を参考に .env を設定してください。そのままでしたら SQLiteで 実行できます。
+  また、環境変数の管理に `django-environ` を導入しているので `.env` を設定していただければ PostgreSQL でも実行できるようになっています。
+  `.env.example` を参考に `.env` を設定してください。そのままでしたら SQLiteで 実行できます。
   
 
 ## 導入方法
@@ -60,9 +70,9 @@ pip install -r requirements.txt
 ```
 ## SECRET_KEY の設定
 
-Django を起動するには SECRET_KEY が必要です。
+Django を起動するには `SECRET_KEY` が必要です。
 
-以下のコマンドを実行して、表示された文字列を .env のSECRET_KEY に設定してください。
+以下のコマンドを実行して、表示された文字列を `.env` のSECRET_KEY に設定してください。
 
 
 ```bash
@@ -85,3 +95,4 @@ http://127.0.0.1:8000/api/memo
 ブラウザ、Web APIのテストがあります
 ```bash
 python manage.py test
+```
