@@ -20,6 +20,7 @@
 
 以下を目的としています。
 - CBV の理解
+- 簡単な Mixin の作成
 - slug による 個別の url の文字列表示
 - ページネーションや paginate_orphans の導入
 - Django REST FrameworkによってWeb APIの CRUD を実装
