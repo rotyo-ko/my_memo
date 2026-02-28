@@ -9,6 +9,8 @@
 - PostgreSQL（開発時）
 - SQLite（このリポジトリ）
 - django-environ
+  
+- google-genai(Gemini 3 Flash)
 
 ## 概要
 
@@ -18,12 +20,23 @@
 
 重要度、更新日時（降順）、作成日時（降順）の順に表示されます。
 
+
 以下を目的としています。
 - CBV の理解
 - 簡単な Mixin の作成
 - slug による 個別の url の文字列表示
 - ページネーションや paginate_orphans の導入
 - Django REST FrameworkによってWeb APIの CRUD を実装
+
+
+
+(追加)
+
+無料版の GOOGLE GEMINI API を利用してメモの詳細から要約をおこなえます。
+
+メモとは別に要約だけをおこなう APIエンドポイント を実装しています。
+
+
   
 
 ## データベースについて
@@ -80,6 +93,10 @@ Django を起動するには `SECRET_KEY` が必要です。
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())" 
 ```
 
+## GEMINI_API_KEY の取得と設定
+
+GEMINI API KEY を取得して、 `.env` の `GEMINI_API_KEY` に設定してください。
+
 ## マイグレーション と　サーバー起動
 ```bash
 python manage.py migrate
@@ -88,9 +105,16 @@ python manage.py runserver
   
 ### ブラウザでアクセス
 http://127.0.0.1:8000/
+
+メモの詳細から要約ボタンをおすと要約がおこなえます
   
 ### Web API にブラウザでアクセス
 http://127.0.0.1:8000/api/memo
+
+### 要約をおこなう API
+
+http://127.0.0.1:8000/api/summarize/
+
 
 ## テストの実行
 ブラウザ、Web APIのテストがあります
