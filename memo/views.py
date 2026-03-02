@@ -78,7 +78,7 @@ class MemoDetailView(LoginRequiredMixin, DetailView):
         self.object = self.get_object()
         try:
             self.object.generate_summary()
-            messages.success(request, "要約に生成しました")
+            messages.success(request, "要約を生成しました")
             
         except Exception:
             messages.error(request, "要約が生成できませんでした")
