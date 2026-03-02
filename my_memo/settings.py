@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "rest_framework",
+    "llm.apps.LlmConfig"
 ]
 
 MIDDLEWARE = [
@@ -156,4 +157,13 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 5,
+    "DEFAULT_THROTTLE_CLASSES" : [
+        "rest_framework.throttling.ScopedRateThrottle",
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        # "summaize"と設定したviewへのAPI制限回数
+        'summarize': '5/min',
+    }
 }
+
+GEMINI_API_KEY = env("GEMINI_API_KEY")

@@ -3,8 +3,11 @@ from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
 
+from llm.services import gemini
+
 
 kks = pykakasi.kakasi()
+
 def generate_slug(title, user_id):
     """日本語からローマ字を生成してslugにする関数"""
     # slugifiyはallow_unicode=False がデフォルトで日本語だと空文字をかえす
@@ -41,6 +44,7 @@ class Memo(models.Model):
     priority = models.IntegerField(verbose_name="重要度", choices=PRIORITY_CHOICES, default=2)
     category = models.CharField(verbose_name="カテゴリー", choices=CATEGORY, default="personal", max_length=20)
     content = models.TextField(verbose_name="メモ内容")
+    summary = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="更新日時", auto_now=True)
     slug = models.SlugField(verbose_name="URL用文字列", max_length=255, blank=True)
@@ -64,3 +68,13 @@ class Memo(models.Model):
                 i += 1
             self.slug = slug
         super().save(*args, **kwargs)
+
+    def generate_summary(self):
+        """contentからGEMINIで要約を生成し保存する"""
+        try:
+            summary_text = gemini.summarize(self.content)
+        except Exception:
+            summary_text = "要約に失敗しました"
+        self.summary = summary_text
+        self.save(update_fields=["summary"])
+        return self.summary

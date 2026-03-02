@@ -2,6 +2,10 @@ from django.views.generic import ListView, UpdateView, DeleteView, DetailView, C
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import PageNotAnInteger, EmptyPage
+from django.shortcuts import redirect
+from django.utils.decorators import method_decorator
+from django_ratelimit.decorators import ratelimit
+from django.contrib import messages 
 
 from .models import Memo
 from .forms import MemoForm
@@ -55,7 +59,8 @@ class MemoCreateView(LoginRequiredMixin, UserInjectMixin, CreateView):
     success_url = reverse_lazy("memo:memo")
     
     
-
+@method_decorator(ratelimit(key="user_or_ip", rate="5/m", method="POST", block=True),
+                  name="post")
 class MemoDetailView(LoginRequiredMixin, DetailView):
     model = Memo
     template_name = "detail.html"
@@ -66,6 +71,18 @@ class MemoDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         # user=self.request.user で自分のオブジェクトしか見れなくなる。
         return Memo.objects.filter(user=self.request.user)
+    
+    def post(self, request, *args, **kwargs):
+        # GEMINI によって要約を生成　生成するとMemoオブジェクトのsummaryフィールドに保存される
+        # ボタンをおさなければ生成されず、以前のsummaryが表示される
+        self.object = self.get_object()
+        try:
+            self.object.generate_summary()
+            messages.success(request, "要約に生成しました")
+            
+        except Exception:
+            messages.error(request, "要約が生成できませんでした")
+        return redirect(self.request.path)
 
 class MemoEditView(LoginRequiredMixin, UpdateView):
     model = Memo

@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}まいめも|メモ一覧{% endblock %}
+{% block title %}まいめも|メモ詳細{% endblock %}
 
 {% block header %}メモ詳細{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-center">
-<div class="card py-3 px-3" style="width: 800px;">
+<div class="card py-3 px-3" style="width: 1000px;">
   <h3>{{ memo.title }}   <small class="fs-6">重要度:{{ memo.priority }}</small></h3>
   
-  <span>作成日: {{ memo.created_at|date:"Y-m-d H:i:s"}}</span>
-  <span>更新日{{ memo.updated_at|date:"Y-m-d H:i:s" }}</span>
-  <span>カテゴリー: {{ memo.category }}</span>
-  <div class="" style="background-color: rgb(234, 248, 255); width: 550px; height: 200px;"">
-    <h3>{{ memo.content|linebreaksbr }}</h3>
+  <span class="m-1">作成日: {{ memo.created_at|date:"Y-m-d H:i:s"}}</span>
+  <span class="m-1">更新日{{ memo.updated_at|date:"Y-m-d H:i:s" }}</span>
+  <span class="m-1">カテゴリー: {{ memo.category }}</span>
+  <div class="row">
+    <div class="col-md-8 p-3 card" style="background-color: rgb(234, 248, 255); ">
+      <h3>{{ memo.content|linebreaksbr }}</h3>
+    </div>
+    <div class="col-md-4 card" >
+      
+        <form method="post">
+          {% csrf_token %}
+          <button class="" type="submit">要約を生成する</button>
+        </form>
+        <div class="p-3" style="background-color: rgb(238, 238, 238);">
+        {% if memo.summary %}
+          <h3>要約</h3>
+          <p >{{ memo.summary }}</p>
+        {% endif %}  
+        </div>
+    </div>
   </div>
   <div class="mx-2">
     <a href="{% url 'memo:edit' slug=memo.slug %}" class="btn me-2 hover-opacity" style="background-color: rgb(37, 218, 13);">編集</a>

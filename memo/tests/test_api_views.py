@@ -84,7 +84,7 @@ class MemoAPITest(APITestCase):
         self.assertEqual(res.data["title"], "post_title")
         self.assertEqual(res.data["content"], "post_content")
         self.assertEqual(res.data["user"], self.user.id)
-    
+                
     def test_post_memo_without_login(self):
         self.client.logout()
         res = self.client.post(

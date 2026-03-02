@@ -14,4 +14,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("api/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls")),
+    path("api/summarize/", memo_api_views.SummarizeAPIView.as_view(), name="summarize")
 ]
