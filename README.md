@@ -9,12 +9,13 @@
 - PostgreSQL（開発時）
 - SQLite（このリポジトリ）
 - django-environ
+
   
 - google-genai(Gemini 3 Flash)
-
+- django-ratelimit
 ## 概要
 
-このプロジェクトは、Django の学習目的で作成した Web アプリケーションです。
+このプロジェクトは、Django の Web アプリケーションです。
 
 ログインするとメモが作成でき、
 
@@ -36,6 +37,8 @@
 
 メモとは別に要約だけをおこなう APIエンドポイント を実装しています。
 
+ブラウザでは django-ratelimit , Web API では throttle で API の利用制限を設けています
+ 
 
   
 
