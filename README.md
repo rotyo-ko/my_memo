@@ -39,6 +39,20 @@
 
 ブラウザでは django-ratelimit , Web API では throttle で API の利用制限を設けています
  
+## スクリーンショット
+
+### メモ一覧画面
+
+![メモ一覧画面](docs/images/memo_list.png)
+
+### メモ詳細画面
+
+![メモ詳細画面](docs/images/memo_detail.png)
+
+### API
+
+![APIメモ一覧画面](docs/images/memo_api.png)
+
 
   
 
@@ -113,6 +127,13 @@ http://127.0.0.1:8000/
   
 ### Web API にブラウザでアクセス
 http://127.0.0.1:8000/api/memo
+```bash
+GET /api/memo/           # 一覧取得
+POST /api/memo/          # 作成
+GET /api/memo/{id}/      # 詳細
+PUT /api/memo/{id}/      # 更新
+DELETE /api/memo/{id}/   # 削除
+```
 
 ### 要約をおこなう API
 
